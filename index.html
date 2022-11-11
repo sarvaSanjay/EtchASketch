@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="header">Etch-A-Sketch</div>
+    <div class="main">
+        <div class="side">
+            <div class="form" onsubmit= "newGrid()">
+                <label for="pixels">Pixels: <span id='pixel'>16</span></label>
+                <input type="range" name='pixels' id="pixels" min="16" max="64" value="16">
+                <button>New Grid</button>
+            </div>
+        </div>
+        <div class="grid-area">
+            <div class="grid"></div>
+        </div>
+    </div>
+</body>
+</html>
