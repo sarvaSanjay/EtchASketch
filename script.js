@@ -1,6 +1,30 @@
-var model = await tf.loadLayersModel('model/model.json');
-var coords = [];
+let coords = [];
 const classes = ['car', 'mountain', 'washing_machine', 'harp', 'syringe', 'helmet', 't-shirt', 'peanut', 'helicopter', 'knee', 'suitcase', 'flashlight', 'snake', 'submarine', 'bus', 'anvil', 'crocodile', 'skyscraper', 'carrot', 'popsicle', 'teddy-bear', 'horse', 'compass', 'cake', 'hand', 'couch', 'peas', 'rifle', 'wheel', 'whale', 'matches', 'bread', 'trumpet', 'wristwatch', 'mosquito', 'basketball', 'string_bean', 'crab', 'piano', 'stop_sign', 'broom', 'oven', 'house_plant', 'moustache', 'golf_club', 'van', 'hammer', 'eyeglasses', 'lightning', 'octopus', 'kangaroo', 'book', 'jail', 'garden', 'lipstick', 'hurricane', 'sleeping_bag', 'owl', 'palm_tree', 'elephant', 'lobster', 'cloud', 'fish', 'bulldozer', 'airplane', 'parrot', 'beard', 'basket', 'speedboat', 'strawberry', 'elbow', 'leg', 'lantern', 'hedgehog', 'spider', 'square', 'passport', 'bat', 'house', 'waterslide', 'jacket', 'dresser', 'telephone', 'butterfly', 'mouth', 'computer', 'potato', 'truck', 'umbrella', 'shorts', 'fan', 'hockey_stick', 'megaphone', 'toe', 'The_Great_Wall_of_China', 'necklace', 'lollipop', 'violin', 'nail', 'beach']
+
+let model; // Declare a global variable
+
+async function load() {
+  try {
+    const model1 = await tf.loadLayersModel('model/model.json');
+    model = model1; // Assign the loaded model to the global variable
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Now you can use the async/await pattern to load the model and assign it to the global variable
+async function getModel() {
+  try {
+    await load(); // Load the model
+    // Use the loaded model here in the global scope
+    console.log(model);
+  } catch (error) {
+    console.error('Error loading the model:', error);
+  }
+}
+
+// Call getModel to load and use the model in the global scope
+getModel();
 
 
 async function predict() {
