@@ -9,9 +9,8 @@ async function predict() {
   //cacluate the dpi of the current window 
   const dpi = window.devicePixelRatio
   //extract the image data 
-  console.log(mbb.max.x, mbb.max.y, mbb.min.x, mbb.min.y)
-  console.log(coords)
-  const imgData = ctx.getImageData(mbb.min.x * dpi, mbb.min.y * dpi,
+    console.log(mbb.max.x, mbb.max.y, mbb.min.x, mbb.min.y)
+  const imgData = ctx.getImageData(mbb.min.x, mbb.min.y,
                     (mbb.max.x - mbb.min.x) * dpi, (mbb.max.y - mbb.min.y) * dpi);
 
   const pred = model.predict(preprocess(imgData)).dataSync()
