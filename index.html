@@ -13,13 +13,15 @@
     <div class="main">
         <div class="side">
             <div class="form" onsubmit= "newGrid()">
-                <label for="pixels">Pixels: <span id='pixel'>16</span></label>
-                <input type="range" name='pixels' id="pixels" min="16" max="64" value="16">
+                <label for="pixels">Pixels: <span id='pixel'>64</span></label>
+                <input type="range" name='pixels' id="pixels" min="16" max="64" value="64">
                 <button>New Grid</button>
             </div>
         </div>
         <div class="grid-area">
-            <div class="grid"></div>
+            <div class="grid">
+                <canvas id="canvas" width="640" height="640" style="border: 1px solid black;"></canvas>
+            </div>
         </div>
     </div>
 </body>

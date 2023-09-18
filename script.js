@@ -1,42 +1,48 @@
-function makeGrid(numSquare) {
-    for(i = 0; i < numSquare * numSquare; i++){
-        let box = document.createElement('div');
-        box.style.width = String(sideLen / numSquare) + 'px';
-        side = String(sideLen / (numSquare)) + 'px';
-        box.setAttribute('class', 'box');
-        box.setAttribute('style', `height: ${side}; width: ${side}`);
-        grid.appendChild(box);
-    }
-    let boxes = document.querySelectorAll('.box');
-    let move = false
-    boxes.forEach(box => {
-        box.addEventListener('mousedown', (e) => {
-            move = true;
-        });
-        box.addEventListener('mouseover', (e) => {
-            if (move) {
-                e.target.classList.add("active");
-            }
-        });
-        box.addEventListener('mouseup', (e) => {
-            move = false;
-        });
-    })
+// Function to draw on the canvas
+function draw(e) {
+    if (!isDrawing) return;
+
+    ctx.strokeStyle = "#000"; // Set the stroke color (black)
+    ctx.lineWidth = 2; // Set the line width
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY); // Start from the last position
+    [lastX, lastY] = [e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top];
+    ctx.lineTo(lastX, lastY); // Draw a line to the current position
+    ctx.stroke(); // Apply the stroke
 }
 
 function newGrid() {
-    //move = false;
-    //boxes.forEach(box => (box.classList.remove('active')));
-    let n = range.value;
-    grid.innerHTML = '';
-    console.log(n);
-    makeGrid(n);
+    canvas.setAttribute('height', range.value * 10);
+    canvas.setAttribute('width', range.value * 10);
+    sidelen = range.value * 10;
+    getImageData();
 }
 
-let grid = document.querySelector('.grid');
-grid.setAttribute('style', 'height: 640px; width: 640px')
-let sideLen = 640;
-makeGrid(16);
+function getImageData() {
+    const imageData = ctx.createImageData(sidelen, sidelen);
+    console.log(imageData.data.length);
+}
+
+let canvas = document.querySelector('#canvas');
+let ctx = canvas.getContext("2d");
+let sidelen = + canvas.getAttribute('height');
+// Variables to track drawing state
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+
+// Event listeners for mouse actions
+canvas.addEventListener("mousedown", (e) => {
+    isDrawing = true;
+    [lastX, lastY] = [e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top];
+});
+
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", () => isDrawing = false);
+canvas.addEventListener("mouseout", () => isDrawing = false);  
+canvas.setAttribute('style', 'height: 640; width: 640');
+
 
 
 
@@ -49,5 +55,4 @@ range.oninput = function() {
 }
 
 let button = document.querySelector('button');
-console.log(button)
 button.addEventListener('click', newGrid);
